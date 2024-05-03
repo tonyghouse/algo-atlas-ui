@@ -1,2 +1,1 @@
-# algo-atlas-ui
-AlgoAtlas
+#AlgoAtlas
