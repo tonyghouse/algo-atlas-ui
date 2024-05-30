@@ -1,6 +1,8 @@
 import "../styles/globals.css";
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils"
+import Navbar from "@/components/Navbar";
+import ThemeContextDefaultProvider from "@/context/ThemeContextProvider";
 
 
 export const metadata: Metadata = {
@@ -15,9 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <ThemeContextDefaultProvider>
       <body  className={cn(
           "min-h-screen bg-background antialiased my-1 "
-        )}>{children}</body>
+        )}>
+          <Navbar/>
+          {children}</body>
+          </ThemeContextDefaultProvider>
     </html>
   );
 }

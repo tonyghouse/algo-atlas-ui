@@ -44,7 +44,7 @@ function Question(questionInfo:QuestionInfo) {
           changeMarkQuestion(questionInfo);
         }}
       />
-      <Link  target="_blank"  className="hover:underline" href={questionInfo.extLinkUrl}>
+      <Link  className="hover:underline" href={questionInfo.linkUrl}>
         {questionInfo.title}
       </Link>
     </li>
