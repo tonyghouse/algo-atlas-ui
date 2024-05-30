@@ -1,3 +1,4 @@
+"use client"
 import Section from "./Section";
 import { SectionInfo } from "@/models/SectionInfo";
 import { useEffect, useState } from "react";

@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+"use client"
 import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SectionInfo } from "@/models/SectionInfo";

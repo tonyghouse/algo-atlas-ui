@@ -1,12 +1,16 @@
-import { useState, useEffect } from "react";
+"use client"
+import {
+  useEffect,
+  useState,
+} from "react"
 import { ThemeContext } from "./ThemeContext";
 import {ThemeMode} from "../util/ThemeUtil";
 
 const ThemeContextDefaultProvider = (props: any) => {
-  const [userThemeMode, setUserThemeMode] = useState<ThemeMode>("dark");
+  const [userThemeMode, setUserThemeMode] = useState<ThemeMode>("light");
 
   useEffect(() => {
-    let userColorScheme: ThemeMode = "dark";
+    let userColorScheme: ThemeMode = "light";
 
     window
       .matchMedia("(prefers-color-scheme: dark)")
@@ -14,13 +18,14 @@ const ThemeContextDefaultProvider = (props: any) => {
         userColorScheme = event.matches ? "dark" : "light";
       });
 
-     const themeValue= localStorage.getItem('algoAtlasThemeValue');
+     const themeValue= localStorage.getItem('regelThemeValue');
      const colorScheme: ThemeMode = (themeValue === "dark" || themeValue === "light") 
                         ?  themeValue : userColorScheme;
                         
-   localStorage.setItem('algoAtlasThemeValue', colorScheme);
-    setUserThemeMode(colorScheme);
+   localStorage.setItem('regelThemeValue', colorScheme);
+   setUserThemeMode(colorScheme);
   }, []);
+
 
   useEffect(() => {
     //shadcn theme changing
@@ -30,64 +35,12 @@ const ThemeContextDefaultProvider = (props: any) => {
       document.documentElement.classList.remove("dark")
     }
     
-    toggleCSSVariables();
   }, [userThemeMode]);
-
-  const lightThemeCSSVariables = [
-    {
-      name: "--custom-background-color",
-      value: "#fdfdfd",
-    },
-    {
-      name: "--custom-first-heading-color",
-      value: "#141212",
-    },
-    
-    {
-      name: "--custom-header-lines-color",
-      value: "#4b4f58",
-    },
-    {
-      name: "--custom-second-heading-color",
-      value: "#7a7f90",
-    },
-  ];
-
-  const darkThemeCSSVariables = [
-    {
-      name: "--custom-background-color",
-      value: "#090909",
-    },
-    {
-      name: "--custom-first-heading-color",
-      value: "#c7d2f5",
-    },
-    
-    {
-      name: "--custom-header-lines-color",
-      value: "#545a65",
-    },
-    {
-      name: "--custom-second-heading-color",
-      value: "#d0d0d0",
-    },
-  ];
 
   const toggleUserThemeMode = () => {
     let toggledThemeMode: ThemeMode = userThemeMode === "dark" ? "light" : "dark";
-    localStorage.setItem('algoAtlasThemeValue', toggledThemeMode);
+    localStorage.setItem('regelThemeValue', toggledThemeMode);
     setUserThemeMode(toggledThemeMode);
-  };
-
-  const toggleCSSVariables = () => {
-    const themeCSSVariables =
-      userThemeMode === "light"
-        ? lightThemeCSSVariables
-        : darkThemeCSSVariables;
-        
-    themeCSSVariables.forEach((cssVar) => {
-      document.documentElement.style.setProperty(cssVar.name, cssVar.value);
-    });
   };
 
   return (

@@ -3,7 +3,7 @@ import { ThemeMode } from "../util/ThemeUtil";
 
 export interface IThemeContextType{
     themeMode: ThemeMode;
-    toggleThemeMode(): void;
+    toggleThemeMode: () => void
 }
 
 export const defaultThemeContextType : IThemeContextType = {

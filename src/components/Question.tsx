@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from "react-router-dom";
-import { Progress } from "@/components/ui/progress"
+"use client"
+import { useEffect, useState } from 'react'
 import { Checkbox } from "@/components/ui/checkbox"
-import { SectionInfo } from '@/models/SectionInfo';
 import { QuestionInfo } from '@/models/QuestionInfo';
-import { SourceTextModule } from 'vm';
+
+import Link from 'next/link';
 
 function Question(questionInfo:QuestionInfo) {
 
@@ -45,7 +44,7 @@ function Question(questionInfo:QuestionInfo) {
           changeMarkQuestion(questionInfo);
         }}
       />
-      <Link  target="_blank"  className="hover:underline" to={questionInfo.extLinkUrl}>
+      <Link  target="_blank"  className="hover:underline" href={questionInfo.extLinkUrl}>
         {questionInfo.title}
       </Link>
     </li>

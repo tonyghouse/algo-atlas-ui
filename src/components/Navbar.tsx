@@ -1,9 +1,11 @@
-import React, { ReactElement, useContext, useState } from "react";
+"use client"
+import { ReactElement, useContext, useState } from "react";
 import { ThemeContext, IThemeContextType } from "../context/ThemeContext";
-import { Link } from "react-router-dom";
+
 import { RxSun, RxMoon, RxTextAlignRight } from "react-icons/rx";
 import { Button } from "./ui/button";
 import { Toggle } from "./ui/toggle";
+import Link from "next/link";
 
 interface Navlink {
   id: number;
@@ -16,7 +18,6 @@ const Navbar = (): ReactElement => {
   const themeContext = useContext<IThemeContextType>(ThemeContext);
 
   const toggleSideMenu = (): void => {
-    console.log("toggled menu");
     setSideMenu(!sideMenu);
   };
 
@@ -24,6 +25,10 @@ const Navbar = (): ReactElement => {
     themeContext.toggleThemeMode();
   };
 
+
+  const closeSideMenu = (): void => {
+    setSideMenu(false);
+  };
   const navlinks: Navlink[] = [
     {
       id: 1,
@@ -39,7 +44,7 @@ const Navbar = (): ReactElement => {
       justify-between bg-gray-100 dark:bg-gray-900
        rounded-lg p-2 mx-4 mt-1 font-inter border-border border-[0.08rem]"
     >
-      <a href="/" className="z-[1000] cursor-pointer">
+      <a href="/" className="cursor-pointer">
         <span className="text-[1.2rem] md:text-[1.5rem] font-semibold ">
           Algo Atlas
         </span>
@@ -50,6 +55,7 @@ const Navbar = (): ReactElement => {
         flex-col fixed top-0  left-0 h-full  w-full  items-end justify-center p-8 backdrop-blur-md 
         md:relative md:h-auto md:w-auto md:flex-row md:items-center md:justify-end md:bg-transparent md:p-0`}
       >
+        <Toggle  variant="outline" key="close-button" onClick={closeSideMenu} className="md:hidden fixed top-5  left-5" >X</Toggle>
         <ul
           className=" mr-4 flex flex-col tracking-wide font-medium 
                        md:flex-row text-[0.5rem]  leading-10 md:text-[0.7rem] md:leading-8 "
@@ -64,16 +70,14 @@ const Navbar = (): ReactElement => {
                   : "hover:border-[#020817]"
               }  px-5 py-3 md:px-4 md:py-0 hover:border-b-[0.01rem] `}
             >
-              <Link target="_blank" className="" to={navLink.url}>
+              <Link target="_blank" className="" href={navLink.url}>
                 <span className="">{navLink.name}</span>
               </Link>
             </Button>
           ))}
 
-          <Toggle  key="theme" className="ml-2 px-2 py-3 md:px-[0.9rem] md:py-0 border-border border-[0.08rem]">
-            <button onClick={toggleTheme}>
+          <Toggle onClick={toggleTheme} variant="outline"  key="theme" className="ml-2 px-2 py-3 md:px-[0.9rem] md:py-0 border-border border-[0.08rem]">
               {themeContext.themeMode === "dark" ? <RxMoon /> : <RxSun />}
-            </button>
           </Toggle>
         </ul>
       </div>
